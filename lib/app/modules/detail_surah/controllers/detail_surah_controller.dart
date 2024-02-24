@@ -10,19 +10,25 @@ class DetailSurahController extends GetxController {
   final arguments = Get.arguments;
 
   // Deklarasi Variable
-  final _isLoading = false.obs;
+  final _status = ''.obs;
+  String get status => _status.value;
+  set status(String n) => _status.value = n;
+
   final _detailSurah = DetailSurahModel().obs;
+  DetailSurahModel get detailSurah => _detailSurah.value;
 
   // Get DetailSurah From surahService
   getDetailSurah() async {
-    _isLoading.value = true;
-    _detailSurah.value = await surahService.fetchDetailSurah(arguments['id']);
-    _isLoading.value = false;
-  }
+    status = 'loading';
+    final data = await surahService.fetchDetailSurah(arguments['id']);
+    if (data == null) {
+      status = 'error';
+      return;
+    }
 
-  // Getter untuk DetailSurahView
-  bool get isLoading => _isLoading.value;
-  DetailSurahModel get detailSurah => _detailSurah.value;
+    status = 'success';
+    _detailSurah.value = data;
+  }
 
   @override
   void onInit() {

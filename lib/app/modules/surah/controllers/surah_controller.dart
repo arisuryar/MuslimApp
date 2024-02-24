@@ -6,8 +6,27 @@ class SurahController extends GetxController {
   final surahService = Get.find<SurahService>();
 
   final _allSurah = <SurahModel>[].obs;
+  List<SurahModel> get allSurah => _allSurah;
+
   final _filteredAllSurah = <SurahModel>[].obs;
-  final _isLoading = false.obs;
+  List<SurahModel> get filteredAllSurah => _filteredAllSurah;
+
+  final _status = ''.obs;
+  String get status => _status.value;
+  set status(String n) => _status.value = n;
+
+  // GET Data From Services
+  getSurah() async {
+    status = 'loading';
+    final list = await surahService.fetchAllSurah();
+    if (list == null) {
+      status = 'error';
+      return;
+    }
+    status = 'success';
+    _allSurah.value = list;
+    _filteredAllSurah.value = List.from(_allSurah);
+  }
 
   // Filtering / Search Surah
   void filteredSurah(String query) {
@@ -25,18 +44,7 @@ class SurahController extends GetxController {
     }
   }
 
-  // GET Data From Services
-  getSurah() async {
-    _isLoading.value = true;
-    _allSurah.value = await surahService.fetchAllSurah();
-    _filteredAllSurah.value = List.from(_allSurah);
-    _isLoading.value = false;
-  }
-
   // Getter to SurahView
-  bool get isLoading => _isLoading.value;
-  List<SurahModel> get allSurah => _allSurah;
-  List<SurahModel> get filteredAllSurah => _filteredAllSurah;
 
   @override
   void onInit() {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+// ignore: library_prefixes
 import 'package:muslim_app/app/data/models/detail_surah.dart' as detailSurah;
 
 import '../controllers/detail_surah_controller.dart';
@@ -16,8 +17,14 @@ class DetailSurahView extends GetView<DetailSurahController> {
         centerTitle: true,
       ),
       body: Obx(() {
-        if (controller.isLoading == true) {
+        if (controller.status == '') {
+          return const Center(child: SizedBox());
+        }
+        if (controller.status == 'loading') {
           return const Center(child: CircularProgressIndicator());
+        }
+        if (controller.status != 'success') {
+          return const Center(child: Text('Terjadi Kesalahan'));
         }
         final surah = controller.detailSurah;
         return Padding(
@@ -26,10 +33,20 @@ class DetailSurahView extends GetView<DetailSurahController> {
             children: [
               InkWell(
                 onTap: () {
-                  debugPrint('Show Dialog, Tafsir Surah');
+                  Get.defaultDialog(
+                    radius: 15,
+                    titlePadding: REdgeInsets.only(top: 15),
+                    title: 'Tafsir Surah ${surah.name!.transliteration!.id}',
+                    titleStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    content: Text(
+                      surah.tafsir!.id!,
+                      textAlign: TextAlign.justify,
+                    ),
+                    contentPadding: REdgeInsets.fromLTRB(15, 15, 15, 0),
+                  );
                 },
                 child: Container(
-                  padding: REdgeInsets.fromLTRB(12, 5, 12, 12),
+                  padding: REdgeInsets.fromLTRB(12, 8, 12, 12),
                   height: 100,
                   width: ScreenUtil().screenWidth,
                   decoration: BoxDecoration(
@@ -75,7 +92,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                       ),
                       const Align(
                         alignment: Alignment.topRight,
-                        child: Icon(Icons.info_outline, color: Colors.black45),
+                        child: Icon(Icons.info_outline, color: Colors.black45, size: 28),
                       ),
                       Align(
                         alignment: Alignment.topCenter,
@@ -151,6 +168,17 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                 InkWell(
                                   onTap: () {
                                     debugPrint('Open Dialog, Tafsir Ayat');
+                                    Get.defaultDialog(
+                                      radius: 15,
+                                      titlePadding: REdgeInsets.only(top: 15),
+                                      title: 'Tafsir Ayat ${ayat.number!.inSurah}',
+                                      titleStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                      content: Text(
+                                        ayat.tafsir!.id!.short!,
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                      contentPadding: REdgeInsets.fromLTRB(15, 15, 15, 0),
+                                    );
                                   },
                                   child: const Icon(Icons.info_outline, size: 28, color: Colors.black45),
                                 ),

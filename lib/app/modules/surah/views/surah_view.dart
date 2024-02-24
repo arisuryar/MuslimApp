@@ -16,13 +16,19 @@ class SurahView extends GetView<SurahController> {
         title: const Text('SurahView'),
       ),
       body: Obx(() {
-        if (controller.isLoading == true) {
+        if (controller.status == '') {
+          return const Center(child: SizedBox());
+        }
+        if (controller.status == 'loading') {
           return const Center(child: CircularProgressIndicator());
+        }
+        if (controller.status != 'success') {
+          return const Center(child: Text('Terjadi Kesalahan'));
         }
         return Column(
           children: [
             Padding(
-              padding: REdgeInsets.fromLTRB(12, 5, 12, 5),
+              padding: REdgeInsets.fromLTRB(8, 5, 8, 5),
               child: TextField(
                 onChanged: (value) => controller.filteredSurah(value),
                 cursorColor: Colors.teal,
