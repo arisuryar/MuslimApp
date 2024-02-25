@@ -8,13 +8,12 @@ import 'package:muslim_app/app/routes/app_pages.dart';
 import '../controllers/surah_controller.dart';
 
 class SurahView extends GetView<SurahController> {
-  const SurahView({super.key});
+  @override
+  final controller = Get.put(SurahController());
+  SurahView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('SurahView'),
-      ),
       body: Obx(() {
         if (controller.status == '') {
           return const Center(child: SizedBox());

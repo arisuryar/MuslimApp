@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Poppins',
           ),
           title: "Application",
-          initialRoute: Routes.SURAH,
+          initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
         );
       },
