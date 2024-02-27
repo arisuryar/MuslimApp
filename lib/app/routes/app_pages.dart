@@ -4,6 +4,8 @@ import '../modules/detail_hadits/bindings/detail_hadits_binding.dart';
 import '../modules/detail_hadits/views/detail_hadits_view.dart';
 import '../modules/detail_surah/bindings/detail_surah_binding.dart';
 import '../modules/detail_surah/views/detail_surah_view.dart';
+import '../modules/doa/bindings/doa_binding.dart';
+import '../modules/doa/views/doa_view.dart';
 import '../modules/hadits/bindings/hadits_binding.dart';
 import '../modules/hadits/views/hadits_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.DETAIL_HADITS,
       page: () => DetailHaditsView(),
       binding: DetailHaditsBinding(),
+    ),
+    GetPage(
+      name: _Paths.DOA,
+      page: () => DoaView(),
+      binding: DoaBinding(),
     ),
   ];
 }

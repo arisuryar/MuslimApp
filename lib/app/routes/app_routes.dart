@@ -8,6 +8,7 @@ abstract class Routes {
   static const DETAIL_SURAH = _Paths.DETAIL_SURAH;
   static const HADITS = _Paths.HADITS;
   static const DETAIL_HADITS = _Paths.DETAIL_HADITS;
+  static const DOA = _Paths.DOA;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const DETAIL_SURAH = '/detail-surah';
   static const HADITS = '/hadits';
   static const DETAIL_HADITS = '/detail-hadits';
+  static const DOA = '/doa';
 }
