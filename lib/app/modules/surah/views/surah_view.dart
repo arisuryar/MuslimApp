@@ -35,7 +35,7 @@ class SurahView extends GetView<SurahController> {
                   hintText: 'Cari Surah',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(5).w, borderSide: BorderSide.none),
                   isDense: true,
-                  fillColor: Colors.teal.withOpacity(0.25),
+                  fillColor: Colors.teal.withOpacity(0.1),
                   filled: true,
                   contentPadding: REdgeInsets.fromLTRB(20, 18, 0, 18),
                 ),

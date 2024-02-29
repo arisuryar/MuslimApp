@@ -6,6 +6,8 @@ import '../modules/detail_surah/bindings/detail_surah_binding.dart';
 import '../modules/detail_surah/views/detail_surah_view.dart';
 import '../modules/doa/bindings/doa_binding.dart';
 import '../modules/doa/views/doa_view.dart';
+import '../modules/dzikir/bindings/dzikir_binding.dart';
+import '../modules/dzikir/views/dzikir_view.dart';
 import '../modules/hadits/bindings/hadits_binding.dart';
 import '../modules/hadits/views/hadits_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.DOA,
       page: () => DoaView(),
       binding: DoaBinding(),
+    ),
+    GetPage(
+      name: _Paths.DZIKIR,
+      page: () => DzikirView(),
+      binding: DzikirBinding(),
     ),
   ];
 }

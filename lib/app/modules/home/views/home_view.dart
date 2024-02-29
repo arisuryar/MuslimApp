@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:muslim_app/app/modules/doa/views/doa_view.dart';
+import 'package:muslim_app/app/modules/dzikir/views/dzikir_view.dart';
 import 'package:muslim_app/app/modules/hadits/views/hadits_view.dart';
 import 'package:muslim_app/app/modules/home/widgets/jadwal_sholat.dart';
 import 'package:muslim_app/app/modules/home/widgets/terakhir_dibaca.dart';
@@ -93,6 +94,7 @@ class HomeView extends GetView<HomeController> {
                   SurahView(),
                   HaditsView(),
                   DoaView(),
+                  DzikirView(),
                 ],
               ),
             ),

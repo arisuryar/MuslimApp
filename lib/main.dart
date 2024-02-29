@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -6,7 +7,13 @@ import 'package:muslim_app/app/data/services/surah_service.dart';
 
 import 'app/routes/app_pages.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   final surahService = Get.put(SurahService());
@@ -17,6 +24,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: (_, child) {
         return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: AppBarTheme(
               iconTheme: const IconThemeData(color: Colors.white),

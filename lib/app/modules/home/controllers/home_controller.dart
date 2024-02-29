@@ -5,5 +5,6 @@ class HomeController extends GetxController {
     "Al-Qur'an",
     'Hadits',
     "Do'a",
+    'Dzikir',
   ];
 }

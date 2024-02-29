@@ -9,6 +9,7 @@ abstract class Routes {
   static const HADITS = _Paths.HADITS;
   static const DETAIL_HADITS = _Paths.DETAIL_HADITS;
   static const DOA = _Paths.DOA;
+  static const DZIKIR = _Paths.DZIKIR;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const HADITS = '/hadits';
   static const DETAIL_HADITS = '/detail-hadits';
   static const DOA = '/doa';
+  static const DZIKIR = '/dzikir';
 }
