@@ -52,8 +52,8 @@ class HomeView extends GetView<HomeController> {
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('25 Februari 2024'),
-                      Text('09:20'),
+                      Text('29 Februari 2024'),
+                      Text('21:28'),
                     ],
                   ),
                   10.verticalSpace,

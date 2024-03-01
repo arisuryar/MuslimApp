@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:muslim_app/app/data/models/doa.dart';
 
-class DoaService extends GetxController {
+class DoaService {
   String url = 'https://api.dikiotang.com/doa';
   Future<List<DoaModel>?> fetchDoa(String source) async {
     try {

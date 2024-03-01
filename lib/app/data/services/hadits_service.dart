@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:muslim_app/app/data/models/detail_hadits.dart';
 import 'package:muslim_app/app/data/models/hadits.dart';
 
-class HaditsService extends GetxController {
+class HaditsService {
   String baseUrl = 'https://hadis-api-id.vercel.app/hadith';
 
   // Get All Surah Hadits

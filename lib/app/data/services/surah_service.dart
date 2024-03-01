@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:muslim_app/app/data/models/detail_surah.dart';
 import 'package:muslim_app/app/data/models/surah.dart';
 
-class SurahService extends GetxController {
+class SurahService {
   String baseUrl = 'https://api.quran.gading.dev/surah';
 
   // Get All Surah From API
