@@ -1,25 +1,24 @@
 import 'package:get/get.dart';
+import 'package:muslim_app/app/common/state_enum.dart';
 import 'package:muslim_app/app/data/models/hadits.dart';
 import 'package:muslim_app/app/data/services/hadits_service.dart';
 
 class HaditsController extends GetxController {
   final haditsService = Get.put(HaditsService());
 
-  final _status = ''.obs;
-  String get status => _status.value;
-  set status(String n) => _status.value = n;
+  Rx<RequestState> haditsState = Rx<RequestState>(RequestState.initial);
 
   final _allHadits = <HaditsModel>[].obs;
   List<HaditsModel> get allHadits => _allHadits;
 
   getHadits() async {
-    status = 'loading';
+    haditsState.value = RequestState.loading;
     final list = await haditsService.fetchAllHadits();
     if (list == null) {
-      status = 'error';
+      haditsState.value = RequestState.error;
       return;
     }
-    status = 'success';
+    haditsState.value = RequestState.success;
     _allHadits.value = list;
   }
 

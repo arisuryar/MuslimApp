@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:muslim_app/app/common/state_enum.dart';
 
 import '../controllers/doa_controller.dart';
 
@@ -35,13 +36,14 @@ class DoaView extends GetView<DoaController> {
             8.verticalSpace,
             Expanded(
               child: Obx(() {
-                if (doaC.status == '') {
+                final state = doaC.doaState.value;
+                if (state == RequestState.initial) {
                   return const SizedBox();
                 }
-                if (doaC.status == 'loading') {
+                if (state == RequestState.loading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (doaC.status != 'success') {
+                if (state != RequestState.success) {
                   return const Center(child: Text('Terjadi kesalahan,tidak ada data'));
                 }
                 final list = doaC.doa;

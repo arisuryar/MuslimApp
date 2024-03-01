@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:muslim_app/app/common/state_enum.dart';
 import 'package:muslim_app/app/data/models/detail_hadits.dart';
 import 'package:muslim_app/app/data/models/hadits.dart';
 import 'package:muslim_app/app/data/services/hadits_service.dart';
@@ -15,21 +16,19 @@ class DetailHaditsController extends GetxController {
 
   final endIndexHadits = 300.obs;
 
-  final _status = ''.obs;
-  String get status => _status.value;
-  set status(String n) => _status.value = n;
+  Rx<RequestState> detailHaditsState = Rx<RequestState>(RequestState.initial);
 
   final _allHadits = DetailHaditsModel().obs;
   DetailHaditsModel get allHadits => _allHadits.value;
 
   getHadits() async {
-    status = 'loading';
+    detailHaditsState.value = RequestState.loading;
     final data = await haditsService.getDetailHadits(arguments.slug!, isSelected + 1);
     if (data == null) {
-      status = 'error';
+      detailHaditsState.value = RequestState.error;
       return;
     }
-    status = 'success';
+    detailHaditsState.value = RequestState.success;
     _allHadits.value = data;
   }
 

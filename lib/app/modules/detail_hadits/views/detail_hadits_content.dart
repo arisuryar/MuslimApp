@@ -1,3 +1,5 @@
+import 'package:muslim_app/app/common/state_enum.dart';
+
 import '../widgets/hadits_content.dart';
 import '../widgets/hadits_header.dart';
 
@@ -14,13 +16,14 @@ class DetailHaditsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (controller.status == '') {
+      final state = controller.detailHaditsState.value;
+      if (state == RequestState.initial) {
         return const Center(child: SizedBox());
       }
-      if (controller.status == 'loading') {
+      if (state == RequestState.loading) {
         return const Expanded(child: Center(child: CircularProgressIndicator()));
       }
-      if (controller.status != 'success') {
+      if (state != RequestState.success) {
         return const Center(child: Text('Terjadi kesalahan, tidak ada data'));
       }
       return Expanded(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:muslim_app/app/common/state_enum.dart';
 
 import '../controllers/dzikir_controller.dart';
 
@@ -35,13 +36,14 @@ class DzikirView extends GetView<DzikirController> {
             8.verticalSpace,
             Expanded(
               child: Obx(() {
-                if (dzikirC.status == '') {
+                final state = dzikirC.dzikirState.value;
+                if (state == RequestState.initial) {
                   return const SizedBox();
                 }
-                if (dzikirC.status == 'loading') {
+                if (state == RequestState.loading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (dzikirC.status != 'success') {
+                if (state != RequestState.success) {
                   return const Center(child: Text('Terjadi kesalahan,tidak ada data'));
                 }
                 final list = dzikirC.dzikir;

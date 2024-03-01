@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:muslim_app/app/common/state_enum.dart';
 import 'package:muslim_app/app/data/models/dzikir.dart';
 import 'package:muslim_app/app/data/services/dzikir_sevice.dart';
 
@@ -6,9 +7,7 @@ class DzikirController extends GetxController {
   final dzikirService = Get.put(DzikirService());
 
   // Status atau Kondisi
-  final _status = ''.obs;
-  String get status => _status.value;
-  set status(String n) => _status.value = n;
+  Rx<RequestState> dzikirState = Rx<RequestState>(RequestState.initial);
 
   // Type Dzikir ada Pagi, Sore dan Solat
   final _type = 'pagi'.obs;
@@ -27,13 +26,13 @@ class DzikirController extends GetxController {
   ];
 
   getDzikir() async {
-    status = 'loading';
+    dzikirState.value = RequestState.loading;
     final data = await dzikirService.fetchDzikir(_type.value);
     if (data == null) {
-      status = 'error';
+      dzikirState.value = RequestState.error;
       return;
     }
-    status = 'success';
+    dzikirState.value = RequestState.success;
     _dzikir.value = data;
   }
 

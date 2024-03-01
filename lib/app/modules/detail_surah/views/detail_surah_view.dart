@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:muslim_app/app/common/state_enum.dart';
 import 'detail_surah_content.dart';
 import 'detail_surah_header.dart';
 
@@ -17,13 +18,14 @@ class DetailSurahView extends GetView<DetailSurahController> {
         centerTitle: true,
       ),
       body: Obx(() {
-        if (controller.status == '') {
+        final state = controller.detailSurahState.value;
+        if (state == RequestState.initial) {
           return const Center(child: SizedBox());
         }
-        if (controller.status == 'loading') {
+        if (state == RequestState.loading) {
           return const Center(child: CircularProgressIndicator());
         }
-        if (controller.status != 'success') {
+        if (state != RequestState.success) {
           return const Center(child: Text('Terjadi Kesalahan'));
         }
         final surah = controller.detailSurah;

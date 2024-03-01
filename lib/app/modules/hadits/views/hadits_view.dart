@@ -1,3 +1,5 @@
+import 'package:muslim_app/app/common/state_enum.dart';
+
 import '../hadits.dart';
 import 'hadits_content.dart';
 
@@ -12,13 +14,14 @@ class HaditsView extends GetView<HaditsController> {
     return Scaffold(
       body: Obx(
         () {
-          if (controller.status == '') {
+          final state = controller.haditsState.value;
+          if (state == RequestState.initial) {
             return const Center(child: SizedBox());
           }
-          if (controller.status == 'loading') {
+          if (state == RequestState.loading) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (controller.status != 'success') {
+          if (state != RequestState.success) {
             return const Center(child: Text('Terjadi kesalahan, tidak ada data'));
           }
           final allHadits = controller.allHadits;

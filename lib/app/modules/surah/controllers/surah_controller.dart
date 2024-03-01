@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:muslim_app/app/common/state_enum.dart';
 import 'package:muslim_app/app/data/models/surah.dart';
 import 'package:muslim_app/app/data/services/surah_service.dart';
 
@@ -11,19 +12,17 @@ class SurahController extends GetxController {
   final _filteredAllSurah = <SurahModel>[].obs;
   List<SurahModel> get filteredAllSurah => _filteredAllSurah;
 
-  final _status = ''.obs;
-  String get status => _status.value;
-  set status(String n) => _status.value = n;
+  Rx<RequestState> surahState = Rx<RequestState>(RequestState.initial);
 
   // GET Data From Services
   getSurah() async {
-    status = 'loading';
+    surahState.value = RequestState.loading;
     final list = await surahService.fetchAllSurah();
     if (list == null) {
-      status = 'error';
+      surahState.value = RequestState.error;
       return;
     }
-    status = 'success';
+    surahState.value = RequestState.success;
     _allSurah.value = list;
     _filteredAllSurah.value = List.from(_allSurah);
   }
