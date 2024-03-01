@@ -14,28 +14,30 @@ class SurahContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: controller.filteredAllSurah.length,
-        padding: EdgeInsets.zero,
-        itemBuilder: (context, index) {
-          SurahModel surah = controller.filteredAllSurah[index];
-          return ListTile(
-            onTap: () {
-              Get.toNamed(Routes.DETAIL_SURAH,
-                  arguments: {'id': surah.number.toString(), 'name': surah.name!.transliteration!.id});
+    return Obx(() => Expanded(
+          child: ListView.builder(
+            itemCount: controller.filteredAllSurah.length,
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) {
+              SurahModel surah = controller.filteredAllSurah[index];
+              return ListTile(
+                onTap: () {
+                  Get.toNamed(Routes.DETAIL_SURAH, arguments: {
+                    'id': surah.number.toString(),
+                    'name': surah.name!.transliteration!.id,
+                  });
+                },
+                // Surah Leading - Widgets
+                leading: SurahLeading(surah: surah),
+                // Surah Tittle - Widgets
+                title: SurahTittle(surah: surah),
+                // Surah Subtitle - Widgets
+                subtitle: SurahSubtitle(surah: surah),
+                // Surah Trailing - Widgets
+                trailing: SurahTrailing(surah: surah),
+              );
             },
-            // Surah Leading - Widgets
-            leading: SurahLeading(surah: surah),
-            // Surah Tittle - Widgets
-            title: SurahTittle(surah: surah),
-            // Surah Subtitle - Widgets
-            subtitle: SurahSubtitle(surah: surah),
-            // Surah Trailing - Widgets
-            trailing: SurahTrailing(surah: surah),
-          );
-        },
-      ),
-    );
+          ),
+        ));
   }
 }
