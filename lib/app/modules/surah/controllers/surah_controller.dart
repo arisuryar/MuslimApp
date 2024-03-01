@@ -4,7 +4,7 @@ import 'package:muslim_app/app/data/models/surah.dart';
 import 'package:muslim_app/app/data/services/surah_service.dart';
 
 class SurahController extends GetxController {
-  final surahService = Get.find<SurahService>();
+  final _surahService = Get.find<SurahService>();
 
   final _allSurah = <SurahModel>[].obs;
   List<SurahModel> get allSurah => _allSurah;
@@ -17,7 +17,7 @@ class SurahController extends GetxController {
   // GET Data From Services
   getSurah() async {
     surahState.value = RequestState.loading;
-    final list = await surahService.fetchAllSurah();
+    final list = await _surahService.fetchAllSurah();
     if (list == null) {
       surahState.value = RequestState.error;
       return;

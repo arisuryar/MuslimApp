@@ -6,7 +6,7 @@ import 'package:muslim_app/app/data/services/hadits_service.dart';
 
 class DetailHaditsController extends GetxController {
   HaditsModel arguments = Get.arguments;
-  final haditsService = Get.put(HaditsService());
+  final _haditsService = Get.find<HaditsService>();
 
   final _isSelected = 0.obs;
   int get isSelected => _isSelected.value;
@@ -23,7 +23,7 @@ class DetailHaditsController extends GetxController {
 
   getHadits() async {
     detailHaditsState.value = RequestState.loading;
-    final data = await haditsService.getDetailHadits(arguments.slug!, isSelected + 1);
+    final data = await _haditsService.getDetailHadits(arguments.slug!, isSelected + 1);
     if (data == null) {
       detailHaditsState.value = RequestState.error;
       return;

@@ -3,21 +3,21 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:muslim_app/app/data/services/surah_service.dart';
+import 'package:muslim_app/app/common/dependencies_binding.dart';
 
 import 'app/routes/app_pages.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  runApp(MyApp());
+  await DependenciesBinding().dependencies();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final surahService = Get.put(SurahService());
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

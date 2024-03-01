@@ -5,7 +5,7 @@ import 'package:muslim_app/app/data/services/surah_service.dart';
 
 class DetailSurahController extends GetxController {
   // Find surahService
-  final surahService = Get.find<SurahService>();
+  final _surahService = Get.find<SurahService>();
 
   // Arguments dari SurahView
   final arguments = Get.arguments;
@@ -19,7 +19,7 @@ class DetailSurahController extends GetxController {
   // Get DetailSurah From surahService
   getDetailSurah() async {
     detailSurahState.value = RequestState.loading;
-    final data = await surahService.fetchDetailSurah(arguments['id']);
+    final data = await _surahService.fetchDetailSurah(arguments['id']);
     if (data == null) {
       detailSurahState.value = RequestState.error;
       return;

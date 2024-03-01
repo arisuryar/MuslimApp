@@ -4,7 +4,7 @@ import 'package:muslim_app/app/data/models/dzikir.dart';
 import 'package:muslim_app/app/data/services/dzikir_sevice.dart';
 
 class DzikirController extends GetxController {
-  final dzikirService = Get.put(DzikirService());
+  final _dzikirService = Get.find<DzikirService>();
 
   // Status atau Kondisi
   Rx<RequestState> dzikirState = Rx<RequestState>(RequestState.initial);
@@ -27,7 +27,7 @@ class DzikirController extends GetxController {
 
   getDzikir() async {
     dzikirState.value = RequestState.loading;
-    final data = await dzikirService.fetchDzikir(_type.value);
+    final data = await _dzikirService.fetchDzikir(_type.value);
     if (data == null) {
       dzikirState.value = RequestState.error;
       return;

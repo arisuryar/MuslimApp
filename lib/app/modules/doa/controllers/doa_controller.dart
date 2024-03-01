@@ -4,7 +4,7 @@ import 'package:muslim_app/app/data/models/doa.dart';
 import 'package:muslim_app/app/data/services/doa_service.dart';
 
 class DoaController extends GetxController {
-  final doaService = Get.put(DoaService());
+  final _doaService = Get.find<DoaService>();
 
   final _source = 'quran'.obs;
   set source(String n) => _source.value = n;
@@ -27,7 +27,7 @@ class DoaController extends GetxController {
 
   getDoa() async {
     doaState.value = RequestState.loading;
-    final data = await doaService.fetchDoa(_source.value);
+    final data = await _doaService.fetchDoa(_source.value);
     if (data == null) {
       doaState.value = RequestState.error;
       return;
@@ -38,7 +38,6 @@ class DoaController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getDoa();
   }

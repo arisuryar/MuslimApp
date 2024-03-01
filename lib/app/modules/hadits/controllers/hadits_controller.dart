@@ -4,7 +4,7 @@ import 'package:muslim_app/app/data/models/hadits.dart';
 import 'package:muslim_app/app/data/services/hadits_service.dart';
 
 class HaditsController extends GetxController {
-  final haditsService = Get.put(HaditsService());
+  final _haditsService = Get.find<HaditsService>();
 
   Rx<RequestState> haditsState = Rx<RequestState>(RequestState.initial);
 
@@ -13,7 +13,7 @@ class HaditsController extends GetxController {
 
   getHadits() async {
     haditsState.value = RequestState.loading;
-    final list = await haditsService.fetchAllHadits();
+    final list = await _haditsService.fetchAllHadits();
     if (list == null) {
       haditsState.value = RequestState.error;
       return;
