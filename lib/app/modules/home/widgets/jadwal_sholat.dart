@@ -1,10 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:muslim_app/app/common/state_enum.dart';
+import 'package:muslim_app/app/modules/detail_hadits/detail_hadits.dart';
+import 'package:muslim_app/app/modules/home/controllers/home_controller.dart';
 
 class JadwalSholat extends StatelessWidget {
   const JadwalSholat({
     super.key,
+    required this.controller,
   });
+
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -23,52 +27,87 @@ class JadwalSholat extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
+          Obx(
+            () {
+              final state = controller.sholatState.value;
+              if (state == RequestState.initial) {
+                return SizedBox(
+                  width: Get.width,
+                  child: Column(
+                    children: [
+                      const Text(''),
+                      3.verticalSpace,
+                      const Text(''),
+                    ],
+                  ),
+                );
+              }
+              if (state == RequestState.loading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (state != RequestState.success) {
+                return const Center(child: Text('Terjadi Kesalahan'));
+              }
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text('Imshak'),
-                  3.verticalSpace,
-                  const Text('04:00'),
+                  Column(
+                    children: [
+                      const Text('Imshak', style: TextStyle(fontWeight: FontWeight.w500)),
+                      3.verticalSpace,
+                      Text(
+                        controller.sholat.imsak!,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Text('Shubuh', style: TextStyle(fontWeight: FontWeight.w500)),
+                      3.verticalSpace,
+                      Text(
+                        controller.sholat.fajr!,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Text('Dzuhur', style: TextStyle(fontWeight: FontWeight.w500)),
+                      3.verticalSpace,
+                      Text(
+                        controller.sholat.dhuhr!,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Text('Ashar', style: TextStyle(fontWeight: FontWeight.w500)),
+                      3.verticalSpace,
+                      Text(
+                        controller.sholat.asr!,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Text('Maghrib', style: TextStyle(fontWeight: FontWeight.w500)),
+                      3.verticalSpace,
+                      Text(
+                        controller.sholat.maghrib!,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Text('Isya', style: TextStyle(fontWeight: FontWeight.w500)),
+                      3.verticalSpace,
+                      Text(
+                        controller.sholat.isha!,
+                      ),
+                    ],
+                  ),
                 ],
-              ),
-              Column(
-                children: [
-                  const Text('Shubuh'),
-                  3.verticalSpace,
-                  const Text('04:10'),
-                ],
-              ),
-              Column(
-                children: [
-                  const Text('Dzuhur'),
-                  3.verticalSpace,
-                  const Text('12:10'),
-                ],
-              ),
-              Column(
-                children: [
-                  const Text('Ashar'),
-                  3.verticalSpace,
-                  const Text('15:10'),
-                ],
-              ),
-              Column(
-                children: [
-                  const Text('Maghrib'),
-                  3.verticalSpace,
-                  const Text('18:30'),
-                ],
-              ),
-              Column(
-                children: [
-                  const Text('Isya'),
-                  3.verticalSpace,
-                  const Text('19:30'),
-                ],
-              ),
-            ],
+              );
+            },
           ),
         ],
       ),
