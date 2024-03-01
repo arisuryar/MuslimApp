@@ -10,6 +10,7 @@ dependencies:
   get: 4.6.6
   http: 1.2.0
   flutter_screenutil: 5.9.0
+  intl: 0.19.0
   flutter: 
     sdk: flutter
 
@@ -19,17 +20,16 @@ dev_dependencies:
     sdk: flutter
 
 flutter: 
-  fonts:
+  fonts: 
     - family: Poppins
-      fonts:
+      fonts: 
         - asset: assets/fonts/poppins/Poppins-Bold.ttf
         - asset: assets/fonts/poppins/Poppins-Light.ttf
         - asset: assets/fonts/poppins/Poppins-Medium.ttf
         - asset: assets/fonts/poppins/Poppins-Regular.ttf
         - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
-
     - family: Amiri
-      fonts:
+      fonts: 
         - asset: assets/fonts/amiri/Amiri-Bold.ttf
         - asset: assets/fonts/amiri/Amiri-BoldItalic.ttf
         - asset: assets/fonts/amiri/Amiri-Italic.ttf

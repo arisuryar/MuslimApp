@@ -49,13 +49,13 @@ class HomeView extends GetView<HomeController> {
               ),
               child: Column(
                 children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('29 Februari 2024'),
-                      Text('21:28'),
-                    ],
-                  ),
+                  Obx(() => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(controller.date),
+                          Text(controller.time),
+                        ],
+                      )),
                   10.verticalSpace,
                   const JadwalSholat(),
                   10.verticalSpace,
