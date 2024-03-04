@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:muslim_app/app/common/dependencies_binding.dart';
+import 'app/common/dependencies_binding.dart';
 
 import 'app/routes/app_pages.dart';
 
