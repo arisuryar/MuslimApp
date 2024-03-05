@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:muslim_app/app/data/models/sholat.dart';
-import 'package:muslim_app/app/presentation/detail_hadits/detail_hadits.dart';
+import '../models/sholat.dart';
+import '../../presentation/detail_hadits/detail_hadits.dart';
 
 class SholatService {
   Future<SholatModel?> fetchSurah(String city, String country) async {

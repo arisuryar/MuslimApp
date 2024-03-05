@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 import '../../../common/state_enum.dart';
-import '../../../data/models/dzikir.dart';
-import '../../../data/datasources/dzikir_sevice.dart';
+import '../../../domain/entities/dzikir.dart';
+import '../../../domain/usecases/get_dzikir.dart';
 
 class DzikirController extends GetxController {
-  final _dzikirService = Get.find<DzikirService>();
+  final GetAllDzikir _getAllDzikir;
 
+  DzikirController(this._getAllDzikir);
   // Status atau Kondisi
   Rx<RequestState> dzikirState = Rx<RequestState>(RequestState.initial);
 
@@ -14,9 +15,13 @@ class DzikirController extends GetxController {
   String get type => _type.value;
   set type(String n) => _type.value = n;
 
+  final _message = ''.obs;
+  String get message => _message.value;
+  set message(String n) => message = n;
+
   // List data Dzikir
-  final _dzikir = <DzikirModel>[].obs;
-  List<DzikirModel> get dzikir => _dzikir;
+  final _dzikir = <Dzikir>[].obs;
+  List<Dzikir> get dzikir => _dzikir;
 
   // List type untuk UI
   List<String> listType = [
@@ -27,13 +32,15 @@ class DzikirController extends GetxController {
 
   getDzikir() async {
     dzikirState.value = RequestState.loading;
-    final data = await _dzikirService.fetchDzikir(_type.value);
-    if (data == null) {
+    final result = await _getAllDzikir.execute(type);
+
+    result.fold((failure) {
       dzikirState.value = RequestState.error;
-      return;
-    }
-    dzikirState.value = RequestState.success;
-    _dzikir.value = data;
+      message = failure.message;
+    }, (data) {
+      dzikirState.value = RequestState.success;
+      _dzikir.value = data;
+    });
   }
 
   @override

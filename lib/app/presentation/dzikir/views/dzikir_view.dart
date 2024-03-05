@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import '../../../common/state_enum.dart';
+import '../../../domain/usecases/get_dzikir.dart';
 import '../../../widgets/app_container_tittle.dart';
 import '../../../widgets/app_text_arab.dart';
 import '../../../widgets/app_text_en.dart';
@@ -10,7 +11,7 @@ import '../../../widgets/app_text_en.dart';
 import '../controllers/dzikir_controller.dart';
 
 class DzikirView extends GetView<DzikirController> {
-  final dzikirC = Get.put(DzikirController());
+  final dzikirC = Get.put(DzikirController(Get.find<GetAllDzikir>()));
   DzikirView({super.key});
   @override
   Widget build(BuildContext context) {
@@ -46,39 +47,42 @@ class DzikirView extends GetView<DzikirController> {
                 if (state == RequestState.loading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (state != RequestState.success) {
-                  return const Center(child: Text('Terjadi kesalahan,tidak ada data'));
+                if (state == RequestState.error) {
+                  return Center(child: Text(controller.message));
                 }
-                final list = dzikirC.dzikir;
-                return ListView.builder(
-                  itemCount: list.length,
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context, index) {
-                    final dzikir = list[index];
-                    return Column(
-                      children: [
-                        ContainerTittle(
-                          child: Text(
-                            'Ulang : ${dzikir.ulang}',
-                            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                if (state == RequestState.success) {
+                  final list = dzikirC.dzikir;
+                  return ListView.builder(
+                    itemCount: list.length,
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      final dzikir = list[index];
+                      return Column(
+                        children: [
+                          ContainerTittle(
+                            child: Text(
+                              'Ulang : ${dzikir.ulang}',
+                              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        ),
-                        10.verticalSpace,
-                        Padding(
-                          padding: REdgeInsets.symmetric(horizontal: 3),
-                          child: Column(
-                            children: [
-                              TextArab(text: dzikir.arab!),
-                              20.verticalSpace,
-                              TextEn(text: dzikir.indo!),
-                              20.verticalSpace,
-                            ],
+                          10.verticalSpace,
+                          Padding(
+                            padding: REdgeInsets.symmetric(horizontal: 3),
+                            child: Column(
+                              children: [
+                                TextArab(text: dzikir.arab!),
+                                20.verticalSpace,
+                                TextEn(text: dzikir.indo!),
+                                20.verticalSpace,
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  },
-                );
+                        ],
+                      );
+                    },
+                  );
+                }
+                return const SizedBox();
               }),
             ),
           ],

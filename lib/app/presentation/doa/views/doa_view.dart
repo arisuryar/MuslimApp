@@ -10,7 +10,7 @@ import '../../../widgets/app_text_en.dart';
 import '../controllers/doa_controller.dart';
 
 class DoaView extends GetView<DoaController> {
-  final doaC = Get.put(DoaController());
+  final doaC = Get.put(DoaController(Get.find()));
   DoaView({super.key});
   @override
   Widget build(BuildContext context) {
@@ -38,48 +38,53 @@ class DoaView extends GetView<DoaController> {
             ),
             8.verticalSpace,
             Expanded(
-              child: Obx(() {
-                final state = doaC.doaState.value;
-                if (state == RequestState.initial) {
-                  return const SizedBox();
-                }
-                if (state == RequestState.loading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (state != RequestState.success) {
-                  return const Center(child: Text('Terjadi kesalahan,tidak ada data'));
-                }
-                final list = doaC.doa;
-                return ListView.builder(
-                  itemCount: list.length,
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context, index) {
-                    final doa = list[index];
-                    return Column(
-                      children: [
-                        ContainerTittle(
-                          child: Text(
-                            doa.judul!,
-                            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        10.verticalSpace,
-                        Padding(
-                          padding: REdgeInsets.symmetric(horizontal: 3),
-                          child: Column(
-                            children: [
-                              TextArab(text: doa.arab!),
-                              20.verticalSpace,
-                              TextEn(text: doa.indo!.replaceAll('\r\n', '')),
-                              20.verticalSpace,
-                            ],
-                          ),
-                        ),
-                      ],
+              child: Obx(
+                () {
+                  final state = doaC.doaState.value;
+                  if (state == RequestState.initial) {
+                    return const SizedBox();
+                  }
+                  if (state == RequestState.loading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (state == RequestState.error) {
+                    return Center(child: Text(controller.message));
+                  }
+                  if (state == RequestState.success) {
+                    final list = doaC.doa;
+                    return ListView.builder(
+                      itemCount: list.length,
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (context, index) {
+                        final doa = list[index];
+                        return Column(
+                          children: [
+                            ContainerTittle(
+                              child: Text(
+                                doa.judul!,
+                                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            10.verticalSpace,
+                            Padding(
+                              padding: REdgeInsets.symmetric(horizontal: 3),
+                              child: Column(
+                                children: [
+                                  TextArab(text: doa.arab!),
+                                  20.verticalSpace,
+                                  TextEn(text: doa.indo!.replaceAll('\r\n', '')),
+                                  20.verticalSpace,
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     );
-                  },
-                );
-              }),
+                  }
+                  return const SizedBox();
+                },
+              ),
             ),
           ],
         ),

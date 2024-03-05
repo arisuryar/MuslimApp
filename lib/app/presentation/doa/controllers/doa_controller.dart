@@ -1,19 +1,26 @@
 import 'package:get/get.dart';
+
 import '../../../common/state_enum.dart';
-import '../../../data/models/doa.dart';
-import '../../../data/datasources/doa_service.dart';
+import '../../../domain/entities/doa.dart';
+import '../../../domain/usecases/get_doa.dart';
 
 class DoaController extends GetxController {
-  final _doaService = Get.find<DoaService>();
+  final GetAllDoa _getAllDoa;
+
+  DoaController(this._getAllDoa);
 
   final _source = 'quran'.obs;
   set source(String n) => _source.value = n;
   String get source => _source.value;
 
+  final _message = ''.obs;
+  String get message => _message.value;
+  set message(String n) => message = n;
+
   Rx<RequestState> doaState = Rx<RequestState>(RequestState.initial);
 
-  final _doa = <DoaModel>[].obs;
-  List<DoaModel> get doa => _doa;
+  final _doa = <Doa>[].obs;
+  List<Doa> get doa => _doa;
 
   List<String> listSource = [
     'quran',
@@ -27,13 +34,15 @@ class DoaController extends GetxController {
 
   getDoa() async {
     doaState.value = RequestState.loading;
-    final data = await _doaService.fetchDoa(_source.value);
-    if (data == null) {
+    final result = await _getAllDoa.execute(_source.value);
+
+    result.fold((failure) {
       doaState.value = RequestState.error;
-      return;
-    }
-    doaState.value = RequestState.success;
-    _doa.value = data;
+      message = failure.message;
+    }, (data) {
+      doaState.value = RequestState.success;
+      _doa.value = data;
+    });
   }
 
   @override

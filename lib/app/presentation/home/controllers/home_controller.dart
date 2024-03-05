@@ -44,7 +44,7 @@ class HomeController extends GetxController {
   SholatModel get sholat => _sholat.value;
 
   // getSholat From Sholat Service
-  Future getSholat() async {
+  getSholat() async {
     final placemark = await getLocation();
     if (placemark == null) return;
     city = placemark[0].subAdministrativeArea!;
@@ -85,9 +85,9 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await getSholat();
     _date.value = _formatDate(DateTime.now());
     _time.value = _formatTime(DateTime.now());
     Timer.periodic(const Duration(seconds: 1), (Timer t) => _getDateTime());
+    getSholat();
   }
 }

@@ -20,16 +20,13 @@ class HaditsController extends GetxController {
   getHadits() async {
     haditsState.value = RequestState.loading;
     final result = await _getAllHadits.execute();
-    result.fold(
-      (failure) {
-        haditsState.value = RequestState.error;
-        message = failure.message;
-      },
-      (data) {
-        haditsState.value = RequestState.success;
-        _allHadits.value = data;
-      },
-    );
+    result.fold((failure) {
+      haditsState.value = RequestState.error;
+      message = failure.message;
+    }, (data) {
+      haditsState.value = RequestState.success;
+      _allHadits.value = data;
+    });
   }
 
   @override

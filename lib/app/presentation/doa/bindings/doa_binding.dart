@@ -6,7 +6,7 @@ class DoaBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DoaController>(
-      () => DoaController(),
+      () => DoaController(Get.find()),
     );
   }
 }
